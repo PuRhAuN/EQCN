@@ -56,8 +56,8 @@ map.on('load', async () => {
 
 		// 2. 并行加载数据（提升速度）
 		const [cityData, provinceData] = await Promise.all([
-			fetchAndCache('./img/100000_full_city.json', 'city'),
-			fetchAndCache('./img/100000_full.json', 'province')
+			fetchAndCache('img/100000_full_city.json', 'city'),
+			fetchAndCache('img/100000_full.json', 'province')
 		]);
 
 		// 3. 处理数据并添加图层
@@ -399,4 +399,5 @@ function cleanupMap() {
 	// 注意：Mapbox会自动清理，但如果有自定义资源需要手动清理
 
 }
+
 
