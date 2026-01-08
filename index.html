@@ -1,0 +1,426 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>灾害预警 v1.0.1</title>
+		<link rel="stylesheet" href="./css/index.css" />
+		<!-- 引入Font Awesome图标库 -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+		<!-- Draw Css -->
+		<link rel="stylesheet" href="./css/mapbox-gl-draw.css">
+		<!-- Draw Js -->
+		<script src="./scriptJS/mapbox-gl-draw.js"></script>
+		<!-- Chart Js -->
+		<script src="./scriptJS/Chart.js"></script>
+		<!-- Mapbox gl Js -->
+		<script src="./scriptJS/mapbox-gl.js"></script>
+		<!-- Mapbox Language JS -->
+		<script src='./scriptJS/mapbox-gl-language.js'></script>
+	</head>
+	<body class="" id="body">
+		<div class="zhezhao active"></div>
+		<div class="win_top">
+			<h3 class="title">灾害预警</h3>
+			<h4>2025-09-22 12:32:00</h4>
+			<div class="online">
+				<span class="fa-solid fa-ethernet"></span>
+				<span>系统正常运行中</span>
+				<i class="fa-solid fa-gear" style="display: inline-block;height: inherit;font-size: 1.8rem;"
+					id="setup"></i>
+			</div>
+		</div>
+		<div class=" win_down">
+			<div class="left">
+				<!-- 地震预警 -->
+				<div class="card">
+					<div class="card-head">
+						<i class="fas fa-earth-americas"></i>
+						<h3>地震预警</h3>
+						<span class="badge">5条记录</span>
+						<i class="fas fa-chevron-down toggle-icon"></i>
+					</div>
+					<div class="card-body" data-eew="1">
+						<div class="card-list">
+							<span>3.0</span>
+							<span>
+								<span class="text">甘肃定西市陇西县</span>
+							</span>
+						</div>
+						<div class="card-list">
+							<span>3.0</span>
+							<span>
+								<span class="text">甘肃定西市陇西县</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<!-- 地震速报 -->
+					<div class="card-head">
+						<i class="fas fa-earth-americas"></i>
+						<h3>地震速报</h3>
+						<span class="badge">5条记录</span>
+						<i class="fas fa-chevron-down toggle-icon"></i>
+					</div>
+					<div class="card-body" data-cenc="1">
+					</div>
+				</div>
+				<div class="card">
+					<!-- 台风预警 -->
+					<div class="card-head">
+						<i class="fa-solid fa-hurricane"></i>
+						<h3>台风预警</h3>
+						<span class="badge">5条记录</span>
+						<i class="fas fa-chevron-down toggle-icon"></i>
+					</div>
+					<div class="card-body" data-tf="1">
+						<div class="card-list">
+							<span>3.0</span>
+							<span>
+								<span class="text">甘肃定西市陇西县</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<!-- 气象预警 -->
+					<div class="card-head">
+						<i class="fas fa-cloud-rain"></i>
+						<h3>气象预警</h3>
+						<span class="badge">5条记录</span>
+						<i class="fas fa-chevron-down toggle-icon"></i>
+					</div>
+					<div class="card-body" id="qx" data-qx="1">
+						<div class="card-list">
+							<span>3.0</span>
+							<span>
+								<span class="text">甘肃定西市陇西县</span>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="card">
+					<!-- 那年今日 -->
+					<div class="card-head">
+						<i class="fas fa-calendar-day"></i>
+						<h3>那年今日</h3>
+						<span class="badge" id="badge"></span>
+						<i class="fas fa-chevron-down toggle-icon"></i>
+					</div>
+					<div class="card-body" id="Historical_earthquakes">
+
+					</div>
+				</div>
+			</div>
+
+			<div class="right">
+				<div class="map-eew">
+					<div id="map"></div>
+					<div id="eew">
+						<div class="eew">
+							<div id="time">
+								<h3 class="eew-title">
+									<span class="mag">M3.5</span>
+									<span class="epicenter">
+										<span>四川汶川县</span>
+									</span>
+									<i class="fas fa-chevron-down toggle-icon ico"></i>
+								</h3>
+								<div id="messge">
+									<div class="wave-timer">
+										<div class="timer-label">纵波(P波)</div>
+										<div class="timer-value arrived" id="P_time">已到达</div>
+									</div>
+									<div class="wave-timer">
+										<div class="timer-label">横波(S波)</div>
+										<div class="timer-value" id="S_time">已到达</div>
+									</div>
+								</div>
+							</div>
+							<div class="earthquake-details">
+								<h3><i class="fas fa-info-circle"></i> 地震信息</h3>
+								<div class="detail-item">
+									<div class="detail-label">震级</div>
+									<div class="detail-value" id="mag">5.8 级</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">震中位置</div>
+									<div class="detail-value" id="epicenter">四川省雅安市芦山县</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">震发时间</div>
+									<div class="detail-value" id="startAt">2023-09-05 14:28:37</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">震源深度</div>
+									<div class="detail-value" id="depth">14 千米</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">最大烈度</div>
+									<div class="detail-value" id="maxIntensity">VII 度</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">本地烈度</div>
+									<div class="detail-value" id="Intensity">V度</div>
+								</div>
+								<div class="detail-item">
+									<div class="detail-label">数据来源</div>
+									<div class="detail-value" id="Intensity">成都高新减灾研究所</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="eew-chart">
+					<!-- 图表筛选区：包含时间按钮 + 新增的刷新按钮 -->
+					<div class="chart-filter"
+						style="margin-bottom: 10px;text-align: center;display: flex;flex-direction: row;align-items: flex-start;justify-content: center;">
+						<button class="filter-btn active" data-period="7d">近7天视图</button>
+						<button class="filter-btn" data-period="30d">近30天视图</button>
+						<button class="filter-btn" data-period="12m">近12月视图</button>
+						<select id="regionFilter" class="region-filter">
+							<option value="global">全球</option>
+							<option value="domestic">国内</option>
+							<option value="foreign">国外</option>
+						</select>
+						<button id="refreshDataBtn" class="refresh-btn" onclick="debouncedGetcencdata()">
+							<i class="fa-solid fa-repeat"></i> 刷新数据
+						</button>
+
+					</div>
+
+					<!-- 图表容器（原有） -->
+					<canvas id="d3"></canvas>
+				</div>
+				<div class="context-menu" id="contextMenu_eew">
+					<div class="text Detailed">详细</div>
+					<div class="text Replay">回放</div>
+					<div class="text Focus">聚焦</div>
+				</div>
+				<div class="context-menu" id="contextMenu_qx">
+					<div class="text Detailed">详细</div>
+				</div>
+				<div class="context-menu" id="contextMenu_tf">
+					<div class="text Detailed">详细</div>
+					<div class="text Focus">聚焦</div>
+				</div>
+			</div>
+		</div>
+		<div class="dataWindow"></div>
+		<div class="SetupWindows">
+			<div class="setup_left">
+				<div class="nav-title">系统导航</div>
+				<a href="#section1" class="nav-link active">基础配置</a>
+				<a href="#section2" class="nav-link">预警设置</a>
+				<a href="#section3" class="nav-link">高级配置</a>
+				<a href="#section4" class="nav-link">捐赠作者</a>
+				<a href="#section5" class="nav-link">关于程序</a>
+			</div>
+			<div class="setup_right">
+				<div id="section1" class="section">
+					<h2 class="set_title">基础配置</h2>
+					<div class="config-item">
+						<div class="config-value">
+							<label class="label-xuanxiang">开启3D地球</label>
+							<span class="xuanxiang">
+								<input type="checkbox" id="on3D" class="dark-mode-toggle" onclick="OnToOff()">
+								<label class="slider" for="on3D"></label>
+							</span>
+						</div>
+						<div class="config-value time" id="MapboxKey">
+							<label class="label-xuanxiang">Mapbox-Key(令牌)</label>
+							<span class="xuanxiang">
+								<input type="text" name="" id="">
+							</span>
+						</div>
+						<div class="config-value">
+							<label class="label-xuanxiang">深色模式</label>
+							<span class="xuanxiang">
+								<input type="checkbox" id="dark-mode-toggle" class="dark-mode-toggle"
+									onclick="darkMode()">
+								<label class="slider" for="dark-mode-toggle"></label>
+							</span>
+						</div>
+						<div class="config-value">
+							<label class="label-xuanxiang">深色模式触发方式</label>
+							<span class="xuanxiang">
+								<span class="trigger">
+									<input type="radio" id="manual-mode" name="dark-mode-trigger" value="manual" checked
+										onchange="on_off_time('manual-mode')" disabled>
+									<label for="manual-mode">手动</label>
+								</span>
+								<span class="trigger">
+									<input type="radio" id="time-mode" name="dark-mode-trigger" value="manual"
+										onchange="on_off_time('time-mode')" disabled>
+									<label for="time-mode">随时间变化</label>
+								</span>
+								<span class="trigger">
+									<input type="radio" id="system-mode" name="dark-mode-trigger" value="manual"
+										onchange="on_off_time('system-mode')" disabled>
+									<label for="system-mode">随系统变化</label>
+								</span>
+							</span>
+						</div>
+						<div class="config-value time" id="se-time">
+							<label class="label-xuanxiang">时间范围设置</label>
+							<span class="xuanxiang">
+								<input type="time" class="darktime" name="startime" id="" value="20:00">
+								-
+								<input type="time" class="darktime" name="endtime" id="" value="07:00">
+							</span>
+						</div>
+					</div>
+				</div>
+				<div id="section2" class="section">
+					<h2 class="set_title">预警设置</h2>
+					<div class="config-item">
+						<div class="config-value">
+							<label class="label-xuanxiang">日间震级阈值</label>
+							<span class="xuanxiang">
+								<input type="range" value="2" min="0" max="10" id="DaytimeMagnitude">
+								<img src="" alt="" id="DaytimeMagnitudeText" />
+							</span>
+						</div>
+						<div class="config-value">
+							<label class="label-xuanxiang">日间烈度阈值</label>
+							<span class="xuanxiang">
+								<input type="range" value="2" min="0" max="12" id="Daytimeintensity">
+								<img src="" alt="" id="DaytimeintensityText" />
+							</span>
+						</div>
+						<div class="config-value">
+							<label class="label-xuanxiang">夜间震级阈值</label>
+							<span class="xuanxiang">
+								<input type="range" value="4" min="0" max="10" id="NightMagnitude">
+								<img src="" alt="" id="NightMagnitudeText" />
+							</span>
+						</div>
+
+						<div class="config-value">
+							<label class="label-xuanxiang">夜间烈度阈值</label>
+							<span class="xuanxiang">
+								<input type="range" value="4" min="0" max="12" id="Nighttimeintensity">
+								<img src="" alt="" id="NighttimeintensityText" />
+							</span>
+						</div>
+					</div>
+				</div>
+				<div id="section3" class="section">
+					<h2 class="set_title">高级设置</h2>
+				</div>
+				<div id="section4" class="section">
+					<h2 class="set_title">捐赠作者</h2>
+					<div class="config-item flex-row">
+						<span class="config-value">
+							<span class="xuanxiang">
+								<img src="./img/png/WX.png" alt="" class="pay" />
+							</span>
+						</span>
+						<span class="config-value">
+							<span class="xuanxiang">
+								<img src="./img/png/ZFB.png" alt="" class="pay" />
+							</span>
+						</span>
+						<span class="config-value">
+							<span class="xuanxiang">
+								<a href="https://space.bilibili.com/399173507" target="_blank">点击前往BiliBili为我充电</a>
+							</span>
+						</span>
+					</div>
+				</div>
+				<div id="section5" class="section">
+					<h2 class="set_title">关于程序</h2>
+					<div class="config-item">
+						<div class="config-value">
+							<label class="label-xuanxiang">更新日志</label>
+							<span class="xuanxiang.left">
+								<h2>2025.07.31</h2>
+								<h3>v1.0.0</h3>
+								<p>程序功能：</p>
+								<p>1、内置wolfx的四川地震api、福建地震api、台湾地震api。</p>
+								<p>2、支持自定义api进行数据请求(当前仅支持GET请求方式)。</p>
+								<p>3、内置气象预警、可以根据城市进行查询，设置保存的城市，在下次打开时气象预警会自动切换至该城市。</p>
+								<p>4、对地图增加了卫星图层</p>
+								<p>5、增加静默自启动功能。</p>
+								<p>6、地震预警声音源来自ICL，若有侵权请联系删除更换。</p>
+								<p>7、地震预警烈度暂未使用行政区域进行显示。</p>
+								<p>8、程序现已安装包形式下发，不再像之前一样为压缩包。</p>
+								<p>9、程序新增BUG反馈与优化建议入口，方便大家对我进行反馈建议。</p>
+								<p>10、后续大家的反馈建议我会放出一个共享表格，方便大家查看问题的处理情况。</p>
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="set">
+				<span class="tk save">导出</span>
+				<span class="tk ok">保存</span>
+				<span class="tk no" id="off">取消</span>
+			</div>
+		</div>
+	</body>
+	<script src="js/lost_year.js"></script>
+	<script src="js/list.js"></script>
+	<script src="js/d3.js"></script>
+	<script src="js/tool.js"></script>
+	<script src="js/map.js"></script>
+	<script>
+		// 获取所有带有 nav-link 类的元素
+		const navLinks = document.querySelectorAll('.nav-link');
+
+		// 为每个元素添加点击事件监听
+		navLinks.forEach(link => {
+			link.addEventListener('click', function() {
+				// 移除所有 nav-link 元素的 active 类
+				navLinks.forEach(item => item.classList.remove('active'));
+				// 为当前点击的元素添加 active 类
+				this.classList.add('active');
+			});
+		});
+		// 目标元素的 id（字符串）
+		function nativeAnchor(id) {
+			const a = document.createElement('a');
+			a.href = '#' + id;
+			a.style.display = 'none'; // 不干扰布局
+			document.body.appendChild(a); // 必须插到 DOM，否则 click 无效
+			a.click(); // 触发原生跳转、写历史、支持前进/退
+			a.remove(); // 用完即删
+		}
+	</script>
+	<script>
+		// 获取滑块和值显示元素
+		const DaytimeMagnitude = document.getElementById('DaytimeMagnitude');
+		const DaytimeMagnitudeText = document.getElementById('DaytimeMagnitudeText');
+
+		const Daytimeintensity = document.getElementById('Daytimeintensity');
+		const DaytimeintensityText = document.getElementById('DaytimeintensityText');
+
+		const NightMagnitude = document.getElementById('NightMagnitude');
+		const NightMagnitudeText = document.getElementById('NightMagnitudeText');
+
+		const Nighttimeintensity = document.getElementById('Nighttimeintensity');
+		const NighttimeintensityText = document.getElementById('NighttimeintensityText');
+
+		DaytimeMagnitudeText.src = `./img/png/${DaytimeMagnitude.value}.png`;
+		DaytimeMagnitude.addEventListener('input', () => {
+			DaytimeMagnitudeText.src = `./img/png/${DaytimeMagnitude.value}.png`;
+		});
+
+		DaytimeintensityText.src = `./img/png/${Daytimeintensity.value}.png`;
+		Daytimeintensity.addEventListener('input', () => {
+			DaytimeintensityText.src = `./img/png/${Daytimeintensity.value}.png`;
+		});
+
+		NightMagnitudeText.src = `./img/png/${NightMagnitude.value}.png`;
+		NightMagnitude.addEventListener('input', () => {
+			NightMagnitudeText.src = `./img/png/${NightMagnitude.value}.png`;
+		});
+
+		NighttimeintensityText.src = `./img/png/${Nighttimeintensity.value}.png`;
+		Nighttimeintensity.addEventListener('input', () => {
+			NighttimeintensityText.src = `./img/png/${Nighttimeintensity.value}.png`;
+		});
+	</script>
+</html>
